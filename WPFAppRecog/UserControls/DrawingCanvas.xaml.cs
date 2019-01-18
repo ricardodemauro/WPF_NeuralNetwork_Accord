@@ -45,11 +45,11 @@ namespace WPFAppRecog.UserControls
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            timer.Tick += new EventHandler(timer_Tick);
+            timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if ((bool)GetValue(IsActiveProperty))
                 UserFeatures = GetFeatures();

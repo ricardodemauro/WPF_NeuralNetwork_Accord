@@ -25,5 +25,10 @@ namespace WPFAppRecog
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            drawingCanvas1.Clear();
+        }
     }
 }

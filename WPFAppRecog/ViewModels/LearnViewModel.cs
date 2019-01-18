@@ -78,6 +78,12 @@ namespace WPFAppRecog.ViewModels
 
         private bool _shouldStop;
 
+        private int _selectedLayerIndex;
+        public int SelectedLayerIndex { get { return _selectedLayerIndex; } set { Set(ref _selectedLayerIndex, value); } }
+
+        private bool _shouldLearnEntireNetwork;
+        public bool ShouldLearnEntireNetwork { get { return _shouldLearnEntireNetwork; } set { Set(ref _shouldLearnEntireNetwork, value); } }
+
         public LearnViewModel(MainViewModel mainViewModel)
         {
             Main = mainViewModel;
@@ -87,6 +93,7 @@ namespace WPFAppRecog.ViewModels
             Momentum = 0.9;
             Epochs = 50;
             BatchSize = 100;
+            ShouldLearnEntireNetwork = true;
 
             if (IsDesignTime)
                 HasLearned = true;

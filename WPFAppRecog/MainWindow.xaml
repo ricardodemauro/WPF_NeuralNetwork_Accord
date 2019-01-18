@@ -50,8 +50,11 @@
                         <Label Content="Epochs" Height="28" HorizontalAlignment="Left" Margin="230,61,0,0" VerticalAlignment="Top" />
                         <TextBox Height="23" HorizontalAlignment="Left" Margin="330,62,0,0" VerticalAlignment="Top" Width="50" Text="{Binding Path=Learn.Epochs}" />
 
+                        <uc:NetworkDiagram HorizontalAlignment="Stretch" Margin="31,47,161,0" VerticalAlignment="Top" Height="140" Grid.Row="2" Width="220" Network="{Binding Network}" SelectedIndex="{Binding Path=Learn.SelectedLayerIndex}" />
+                        
                         <Button Content="Stack Layer" Height="23" HorizontalAlignment="Right" Margin="0,58,24,0" Name="button1" VerticalAlignment="Top" Width="108" Grid.Row="2" />
                         <Button Content="Remove Layer" Height="23" HorizontalAlignment="Right" Margin="0,89,24,0" Name="button2" VerticalAlignment="Top" Width="108" Grid.Row="2" />
+                        
                         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,0,24,13" VerticalAlignment="Bottom" Width="43" Text="{Binding Path=NewLayerNeurons}" Grid.Row="2" />
 
                         <Label Content="Neurons" Height="28" HorizontalAlignment="Right" Margin="0,0,76,12" Name="label5" VerticalAlignment="Bottom" Grid.Row="2" />
@@ -86,7 +89,7 @@
 
                         <CheckBox Content="use supervised learning" HorizontalAlignment="Left" Margin="231,144,0,0" IsChecked="{Binding Path=Learn.ShouldLayerBeSupervised}" IsEnabled="{Binding Path=CanLayerBeSupervised}" Height="17" VerticalAlignment="Top" />
 
-                        <CheckBox Content="or fine-tune entire network" HorizontalAlignment="Right" Margin="0,13,32,0" Name="checkBox1" Grid.Row="2" IsChecked="{Binding Path=ShouldLearnEntireNetwork}" IsEnabled="{Binding Path=CanNetworkBeSupervised}" Height="17" VerticalAlignment="Top" />
+                        <CheckBox Content="or fine-tune entire network" HorizontalAlignment="Right" Margin="0,13,32,0" Grid.Row="2" IsChecked="{Binding Path=Learn.ShouldLearnEntireNetwork}" Height="17" VerticalAlignment="Top" />
 
                         <Label Content="{Binding Path=Learn.CurrentEpochError}" ContentStringFormat="Error: {0:N}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,24,8" VerticalAlignment="Bottom" Width="167" Grid.Row="1" />
                         <Label Content="{Binding Path=Learn.CurrentEpoch}" ContentStringFormat="{}{0:D}  /" HorizontalAlignment="Left" Margin="284,61,0,0" Width="45" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Right" />
@@ -193,13 +196,12 @@
                                Source="{Binding Path=Use.NetworkOutput}" />-->
                     </Border>
 
-                    <Button Content="Clear" Height="23" HorizontalAlignment="Left" Margin="318,487,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=Use.ClearUserInputCommand}" />
-                    
+                    <Button Name="drawContent" Content="Clear" Height="23" HorizontalAlignment="Left" Margin="318,487,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=Use.ClearUserInputCommand}" Click="Button_Click" />
+
                     <Label Content="Highest Output" Height="28" HorizontalAlignment="Left" Margin="587,484,0,0" Name="label16" VerticalAlignment="Top" />
                     <Label Content="{Binding Path=Use.Classification}" HorizontalAlignment="Left" Margin="853,480,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" />
                 </Grid>
             </TabItem>
-            <TabItem Header="{Binding Title}" Name="Heloo"></TabItem>
         </TabControl>
     </Grid>
 </Controls:MetroWindow>
