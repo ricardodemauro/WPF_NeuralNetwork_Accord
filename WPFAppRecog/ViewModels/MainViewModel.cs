@@ -33,6 +33,8 @@ namespace WPFAppRecog.ViewModels
 
         #region ViewModels
         public LearnViewModel Learn { get; private set; }
+
+        public UseViewModel Use { get; private set; }
         #endregion ViewModels
 
         private readonly string _title = "page title sample";
@@ -68,6 +70,7 @@ namespace WPFAppRecog.ViewModels
             ResetLearnCommand = new RelayCommand(ResetLearnHandler);
             ComputeCommand = new RelayCommand(ComputHandler);
 
+            Use = new UseViewModel(this);
             Learn = new LearnViewModel(this);
             Learn.OpenDatabase();
         }

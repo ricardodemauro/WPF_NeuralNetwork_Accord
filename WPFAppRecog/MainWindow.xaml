@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:WPFAppRecog.ViewModels" 
-        xmlns:chart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        xmlns:uc="clr-namespace:WPFAppRecog.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="665"
@@ -87,7 +87,7 @@
                         <CheckBox Content="use supervised learning" HorizontalAlignment="Left" Margin="231,144,0,0" IsChecked="{Binding Path=Learn.ShouldLayerBeSupervised}" IsEnabled="{Binding Path=CanLayerBeSupervised}" Height="17" VerticalAlignment="Top" />
 
                         <CheckBox Content="or fine-tune entire network" HorizontalAlignment="Right" Margin="0,13,32,0" Name="checkBox1" Grid.Row="2" IsChecked="{Binding Path=ShouldLearnEntireNetwork}" IsEnabled="{Binding Path=CanNetworkBeSupervised}" Height="17" VerticalAlignment="Top" />
-                        
+
                         <Label Content="{Binding Path=Learn.CurrentEpochError}" ContentStringFormat="Error: {0:N}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,0,24,8" VerticalAlignment="Bottom" Width="167" Grid.Row="1" />
                         <Label Content="{Binding Path=Learn.CurrentEpoch}" ContentStringFormat="{}{0:D}  /" HorizontalAlignment="Left" Margin="284,61,0,0" Width="45" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Right" />
 
@@ -104,7 +104,7 @@
                         </WindowsFormsHost>-->
 
                         <Controls:ProgressRing HorizontalAlignment="Center" IsActive="{Binding Path=Learn.IsLearning}" VerticalAlignment="Center" Grid.Row="1" />
-                        
+
                         <Slider Height="23" HorizontalAlignment="Left" Margin="101,164,0,0" VerticalAlignment="Top" Width="229" Value="{Binding Path=Learn.BatchSize, Converter={StaticResource LogScaleConverter}}" Maximum="{Binding Path=Database.Training.Count, Converter={StaticResource LogScaleConverter}}" />
                         <Label Content="Batch Size" Height="28" HorizontalAlignment="Left" Margin="31,162,0,0" VerticalAlignment="Top" />
                         <Label Content="{Binding Path=BatchSize}" Height="28" HorizontalAlignment="Left" Margin="335,162,0,0" VerticalAlignment="Top" Width="45" />
@@ -139,14 +139,14 @@
                             </ListBox.ItemTemplate>
                         </ListView>
                         <Controls:ProgressRing IsActive="{Binding Path=Learn.IsDataLoading}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        
+
                         <Label Content="Optdigits Dataset" HorizontalAlignment="Left" Margin="22,8,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="1" />
-                        
+
                         <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,0,14,13" VerticalAlignment="Bottom" Width="120" ItemsSource="{Binding Path=Learn.Sets}" SelectedItem="{Binding Path=Learn.CurrentSet}" Grid.Row="1" />
-                        
+
                         <Label Content="{Binding Path=Learn.ConfusionMatrix.Kappa, FallbackValue=0}" HorizontalAlignment="Left" Margin="196,0,0,14" VerticalAlignment="Bottom" Grid.Row="1" ContentStringFormat="Kappa: {0:##0.000%}" Width="111" />
                         <Label Content="{Binding Path=Learn.ConfusionMatrix.OverallAgreement, FallbackValue=0}" HorizontalAlignment="Left" Margin="62,0,0,14" VerticalAlignment="Bottom" Grid.Row="1" ContentStringFormat="Accuracy: {0:##0.000%}" Width="124" />
-                        
+
                         <Button Content="Details" Height="23" HorizontalAlignment="Right" Margin="0,0,140,14" VerticalAlignment="Bottom" Width="75" Grid.Row="1" />
                         <Button Style="{DynamicResource MetroCircleButtonStyle}" Height="30" Width="30" Margin="186,13,0,0" Command="{Binding Path=ComputeCommand}" Cursor="Hand" ToolTip="Compute the currently selected data set" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <Rectangle Width="10" Height="10">
@@ -156,6 +156,47 @@
                             </Rectangle>
                         </Button>
                     </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Use" IsSelected="{Binding Path=Use.IsActive}">
+                <Grid>
+                    <uc:DrawingCanvas HorizontalAlignment="Left" 
+                                      Margin="93,81,0,0" 
+                                      x:Name="drawingCanvas1" 
+                                      VerticalAlignment="Top" 
+                                      Width="300" 
+                                      Height="400"
+                                      BorderBrush="Black" 
+                                      BorderThickness="1" 
+                                      UserFeatures="{Binding Path=Use.UserInput, Mode=TwoWay}" 
+                                      IsActive="{Binding Path=Learn.HasLearned}">
+                        <uc:DrawingCanvas.Effect>
+                            <DropShadowEffect ShadowDepth="0" 
+                                              Color="Gray" 
+                                              Opacity="1" 
+                                              BlurRadius="5" />
+                        </uc:DrawingCanvas.Effect>
+                    </uc:DrawingCanvas>
+
+                    <Border Height="400" 
+                            HorizontalAlignment="Right"
+                            BorderThickness="1"
+                            VerticalAlignment="Top" 
+                            Width="300" 
+                            Margin="583,81,118,77"
+                            BorderBrush="Black"
+                            Background="White">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="0" Color="Gray" Opacity="1" BlurRadius="5" />
+                        </Border.Effect>
+                        <!--<Image Stretch="Fill" 
+                               Source="{Binding Path=Use.NetworkOutput}" />-->
+                    </Border>
+
+                    <Button Content="Clear" Height="23" HorizontalAlignment="Left" Margin="318,487,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=Use.ClearUserInputCommand}" />
+                    
+                    <Label Content="Highest Output" Height="28" HorizontalAlignment="Left" Margin="587,484,0,0" Name="label16" VerticalAlignment="Top" />
+                    <Label Content="{Binding Path=Use.Classification}" HorizontalAlignment="Left" Margin="853,480,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" />
                 </Grid>
             </TabItem>
             <TabItem Header="{Binding Title}" Name="Heloo"></TabItem>

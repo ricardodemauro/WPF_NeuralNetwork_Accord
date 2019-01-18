@@ -37,7 +37,8 @@ namespace WPFAppRecog.ViewModels
         /// <summary>Indicates the learning procedure is currently being run.</summary>
         public bool IsLearning { get { return _isLearning; } set { Set(ref _isLearning, value); } }
 
-        public bool HasLearned { get; private set; }
+        private bool _hasLearned;
+        public bool HasLearned { get { return _hasLearned; } set { Set(ref _hasLearned, value); } }
 
         public bool CanPause { get { return IsLearning; } }
         public bool CanReset { get { return Main.CanGenerate; } }
